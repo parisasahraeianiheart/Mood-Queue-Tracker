@@ -31,7 +31,7 @@ def get_worksheet():
 
     print("✅ New sheet created and shared.")
     print("🔗 Sheet URL:", spreadsheet.url)
-
+    st.markdown(f"🔗 [Open Google Sheet]({spreadsheet.url})", unsafe_allow_html=True)
     
     return sheet
 

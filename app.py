@@ -67,9 +67,8 @@ data = load_data()
 st.subheader("2️⃣ Mood Trends")
 
 if not data.empty:
-    unique_dates = sorted(data["date"].unique(), reverse=True)
-    selected_date = st.selectbox("Select a date", unique_dates, index=0)
-    filtered = data[data["date"] == selected_date]
+    today = date.today()
+    filtered = data[data["date"] == today]
 
     if not filtered.empty:
         mood_counts = filtered["mood"].value_counts().reset_index()

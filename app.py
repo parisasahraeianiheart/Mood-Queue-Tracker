@@ -84,8 +84,5 @@ if not filtered.empty:
     st.plotly_chart(fig, use_container_width=True)
 else:
     st.info("No moods logged today yet.")
-    else:
-        st.info("No moods logged for the selected date.")
-else:
-    st.info("No mood data found yet.")
+
 

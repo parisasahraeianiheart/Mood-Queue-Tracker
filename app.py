@@ -26,6 +26,7 @@ def get_worksheet():
     client = gspread.authorize(creds)
     sheet = client.create("New Mood Tracker").sheet1
     print("New sheet created. URL:", sheet.spreadsheet.url)   
+    sheet.share("srnparisa@gmail.com", perm_type="user", role="writer")
 
     return sheet
 

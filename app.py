@@ -83,7 +83,3 @@ if not data.empty:
 else:
     st.info("No mood data found yet.")
 
-if st.session_state.get("auto_refresh", True):
-    st.caption("⏱ Auto-refresh every 30 seconds")
-    time.sleep(30)
-    st.experimental_rerun()

@@ -24,5 +24,5 @@ Log your mood with a single emoji
 
 ### 1. Clone this repository
 ```bash
-git clone https://github.com/your-username/Mood-Queue-Tracker.git
+git clone https://github.com/parisasahraeianiheart/Mood-Queue-Tracker.git
 cd Mood-Queue-Tracker

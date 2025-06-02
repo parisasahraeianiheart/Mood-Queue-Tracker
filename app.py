@@ -70,18 +70,20 @@ if not data.empty:
     today = date.today()
     filtered = data[data["date"] == today]
 
-    if not filtered.empty:
-        mood_counts = filtered["mood"].value_counts().reset_index()
-        mood_counts.columns = ["mood", "count"]
-        fig = px.bar(
-            mood_counts,
-            x="mood",
-            y="count",
-            title=f"Mood Count for {selected_date}",
-            labels={"count": "Entries", "mood": "Mood"},
-        )
-        fig.update_layout(xaxis_title="Mood", yaxis_title="Count", height=400)
-        st.plotly_chart(fig, use_container_width=True)
+
+if not filtered.empty:
+    mood_counts = filtered["mood"].value_counts().reset_index()
+    mood_counts.columns = ["mood", "count"]
+    fig = px.bar(
+        mood_counts,
+        x="mood",
+        y="count",
+        title=f"Mood Count for {today.strftime('%B %d, %Y')}",
+        labels={"count": "Entries", "mood": "Mood"},
+    )
+    st.plotly_chart(fig, use_container_width=True)
+else:
+    st.info("No moods logged today yet.")
     else:
         st.info("No moods logged for the selected date.")
 else:

@@ -23,12 +23,6 @@ def get_worksheet():
     creds_dict = dict(st.secrets["gcp_service_account"])
     creds = ServiceAccountCredentials.from_json_keyfile_dict(creds_dict, scope)
 
-    '''
-    client = gspread.authorize(creds)
-    sheet = client.create("New Mood Tracker").sheet1
-    print("New sheet created. URL:", sheet.spreadsheet.url)   
-    sheet.share("srnparisa@gmail.com", perm_type="user", role="writer")
-    '''
     client = gspread.authorize(creds)
 
     spreadsheet = client.create("New Mood Tracker")

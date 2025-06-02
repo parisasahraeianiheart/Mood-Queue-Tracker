@@ -25,7 +25,6 @@ def get_worksheet():
     
     client = gspread.authorize(creds)
     sheet = client.open_by_key("1VtyJ_cyGszJmfLx792ArwYNJ5gYXNJli4WNfJ4jfCbE").sheet1    
-    
     return sheet
 
 sheet = get_worksheet()

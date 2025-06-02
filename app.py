@@ -47,9 +47,12 @@ with st.form("mood_form", clear_on_submit=True):
 def load_data():
     records = sheet.get_all_records()
     df = pd.DataFrame(records)
-    if not df.empty:
-        df["timestamp"] = pd.to_datetime(df["timestamp"])
-        df["date"] = df["timestamp"].dt.date
+
+    if df.empty or "timestamp" not in df.columns:
+        return pd.DataFrame(columns=["timestamp", "mood", "note", "date"])
+
+    df["timestamp"] = pd.to_datetime(df["timestamp"])
+    df["date"] = df["timestamp"].dt.date
     return df
 
 data = load_data()

@@ -24,7 +24,8 @@ def get_worksheet():
     creds = ServiceAccountCredentials.from_json_keyfile_dict(creds_dict, scope)
     
     client = gspread.authorize(creds)
-    sheet = client.open_by_key("1VtyJ_cyGszJmfLx792ArwYNJ5gYXNJli4WNfJ4jfCbE").sheet1    
+    sheet = client.create("New Mood Tracker").sheet1
+    print("New sheet created. URL:", sheet.spreadsheet.url)    
     return sheet
 
 sheet = get_worksheet()

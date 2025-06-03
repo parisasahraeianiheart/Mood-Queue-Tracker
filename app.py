@@ -55,7 +55,7 @@ def load_data():
     records = sheet.get_all_records()
     df = pd.DataFrame(records)
 
-    if df.empty or "timestamp" not in df.columns:
+    if df.empty:
         return pd.DataFrame(columns=["timestamp", "mood", "note", "date"])
 
     df["timestamp"] = pd.to_datetime(df["timestamp"])
@@ -63,6 +63,7 @@ def load_data():
     return df
 
 data = load_data()
+print(data)
 
 st.subheader("2️⃣ Mood Trends")
 

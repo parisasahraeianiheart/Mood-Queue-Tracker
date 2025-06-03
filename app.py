@@ -29,7 +29,8 @@ def get_worksheet():
     spreadsheet.share("srnparisa@gmail.com", perm_type="user", role="writer")
     sheet = spreadsheet.sheet1
 
-    print("✅ New sheet created and shared.")
+    print("New sheet created and shared.")
+    sheet.append_row(["timestamp", "mood", "note"])
     print("🔗 Sheet URL:", spreadsheet.url)
     st.markdown(f"🔗 [Open Google Sheet]({spreadsheet.url})", unsafe_allow_html=True)
     

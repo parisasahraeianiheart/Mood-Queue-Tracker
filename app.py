@@ -89,7 +89,7 @@ else:
     st.info("No mood data found yet.")
 
 
-
+'''
 st.subheader("2️⃣ Mood Trends")
 
 if not data.empty:
@@ -110,7 +110,7 @@ if not data.empty:
     st.plotly_chart(fig, use_container_width=True)
 else:
     st.info("No moods logged today yet.")
-
+'''
 st.caption("⏱ Auto-refresh every 30 seconds")
 time.sleep(30)
 st.rerun()

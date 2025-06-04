@@ -107,28 +107,6 @@ else:
     st.info("No mood data found yet.")
 
 
-'''
-st.subheader("2️⃣ Mood Trends")
-
-if not data.empty:
-    today = date.today()
-    filtered = data[data["date"] == today]
-
-
-    if not filtered.empty:
-        mood_counts = filtered["mood"].value_counts().reset_index()
-        mood_counts.columns = ["mood", "count"]
-        fig = px.bar(
-            mood_counts,
-            x="mood",
-            y="count",
-            title=f"Mood Count for {today.strftime('%B %d, %Y')}",
-            labels={"count": "Entries", "mood": "Mood"},
-        )
-    st.plotly_chart(fig, use_container_width=True)
-else:
-    st.info("No moods logged today yet.")
-'''
 st.caption("⏱ Auto-refresh every 30 seconds")
 time.sleep(30)
 st.rerun()

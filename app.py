@@ -56,7 +56,7 @@ def load_data():
     records = sheet.get_all_records()
     df = pd.DataFrame(records)
 
-    if df.empty:
+    if df.empty or "timestamp" not in df.columns:
         return pd.DataFrame(columns=["timestamp", "mood", "note", "date"])
 
     df["timestamp"] = pd.to_datetime(df["timestamp"])

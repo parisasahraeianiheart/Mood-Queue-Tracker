@@ -43,6 +43,19 @@ def get_worksheet():
 
 sheet = get_worksheet()
 
+st.subheader("1️⃣ Log a Mood")
+with st.form("mood_form", clear_on_submit=True):
+    col1, col2 = st.columns([1, 3])
+    with col1:
+        mood = st.selectbox("Mood", ["😊", "😠", "😕", "🎉"], index=0)
+    with col2:
+        note = st.text_input("Optional note")
+    submitted = st.form_submit_button("Submit Mood")
+    if submitted:
+        now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        sheet.append_row([now, mood, note])
+        st.success("✅ Mood logged!")
+
 @st.cache_data(ttl=60)
 def load_data():
     records = sheet.get_all_records()

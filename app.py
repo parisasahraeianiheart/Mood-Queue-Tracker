@@ -38,6 +38,21 @@ def get_worksheet():
 
 sheet = get_worksheet()
 
+@st.cache_data(ttl=60)
+def load_data():
+    records = sheet.get_all_records()
+    df = pd.DataFrame(records)
+
+    if df.empty or "timestamp" not in df.columns:
+        return pd.DataFrame(columns=["timestamp", "mood", "note", "date"])
+
+    df["timestamp"] = pd.to_datetime(df["timestamp"])
+    df["date"] = df["timestamp"].dt.date
+    return df
+
+data = load_data()
+print(data)
+
 st.subheader("📊 Mood Trends")
 
 if not data.empty:
@@ -73,20 +88,7 @@ if not data.empty:
 else:
     st.info("No mood data found yet.")
 
-@st.cache_data(ttl=60)
-def load_data():
-    records = sheet.get_all_records()
-    df = pd.DataFrame(records)
 
-    if df.empty or "timestamp" not in df.columns:
-        return pd.DataFrame(columns=["timestamp", "mood", "note", "date"])
-
-    df["timestamp"] = pd.to_datetime(df["timestamp"])
-    df["date"] = df["timestamp"].dt.date
-    return df
-
-data = load_data()
-print(data)
 
 st.subheader("2️⃣ Mood Trends")
 

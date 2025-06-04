@@ -87,4 +87,6 @@ if not data.empty:
 else:
     st.info("No moods logged today yet.")
 
-
+st.caption("⏱ Auto-refresh every 30 seconds")
+time.sleep(30)
+st.experimental_rerun()

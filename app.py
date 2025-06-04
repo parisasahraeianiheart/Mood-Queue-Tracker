@@ -38,18 +38,40 @@ def get_worksheet():
 
 sheet = get_worksheet()
 
-st.subheader("1️⃣ Log a Mood")
-with st.form("mood_form", clear_on_submit=True):
-    col1, col2 = st.columns([1, 3])
-    with col1:
-        mood = st.selectbox("Mood", ["😊", "😠", "😕", "🎉"], index=0)
-    with col2:
-        note = st.text_input("Optional note")
-    submitted = st.form_submit_button("Submit Mood")
-    if submitted:
-        now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        sheet.append_row([now, mood, note])
-        st.success("✅ Mood logged!")
+st.subheader("📊 Mood Trends")
+
+if not data.empty:
+    with st.expander("🔍 Filter Options", expanded=True):
+        date_option = st.radio("View by:", ["Today", "Select a Date", "All Dates"], horizontal=True)
+
+    if date_option == "Today":
+        filtered = data[data["date"] == date.today()]
+        title = f"Mood Count for Today ({date.today().strftime('%b %d')})"
+    elif date_option == "Select a Date":
+        unique_dates = sorted(data["date"].unique(), reverse=True)
+        selected_date = st.selectbox("Pick a date", unique_dates)
+        filtered = data[data["date"] == selected_date]
+        title = f"Mood Count for {selected_date.strftime('%b %d, %Y')}"
+    else:
+        filtered = data
+        title = "Mood Count (All Dates Combined)"
+
+    if not filtered.empty:
+        mood_counts = filtered["mood"].value_counts().reset_index()
+        mood_counts.columns = ["mood", "count"]
+
+        fig = px.bar(
+            mood_counts,
+            x="mood",
+            y="count",
+            title=title,
+            labels={"count": "Entries", "mood": "Mood"},
+        )
+        st.plotly_chart(fig, use_container_width=True)
+    else:
+        st.info("No mood data found for the selected range.")
+else:
+    st.info("No mood data found yet.")
 
 @st.cache_data(ttl=60)
 def load_data():

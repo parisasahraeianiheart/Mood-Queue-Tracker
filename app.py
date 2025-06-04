@@ -19,21 +19,26 @@ def get_worksheet():
         "https://spreadsheets.google.com/feeds",
         "https://www.googleapis.com/auth/drive"
     ]
-    
+
     creds_dict = dict(st.secrets["gcp_service_account"])
     creds = ServiceAccountCredentials.from_json_keyfile_dict(creds_dict, scope)
-
     client = gspread.authorize(creds)
 
-    spreadsheet = client.create("New Mood Tracker")
-    spreadsheet.share("srnparisa@gmail.com", perm_type="user", role="writer")
-    sheet = spreadsheet.sheet1
+    # Replace this with your existing sheet ID from the Google Sheet URL
+    SHEET_ID = "1ABCdefGhIjkLmNoPQrsTuvWXyz123456"
 
-    print("New sheet created and shared.")
-    sheet.append_row(["timestamp", "mood", "note"])
-    print("🔗 Sheet URL:", spreadsheet.url)
-    st.markdown(f"🔗 [Open Google Sheet]({spreadsheet.url})", unsafe_allow_html=True)
-    
+    try:
+        spreadsheet = client.open_by_key(SHEET_ID)
+    except gspread.exceptions.SpreadsheetNotFound:
+        spreadsheet = client.create("New Mood Tracker")
+        spreadsheet.share("srnparisa@gmail.com", perm_type="user", role="writer")
+        sheet = spreadsheet.sheet1
+        sheet.append_row(["timestamp", "mood", "note"])
+        st.markdown(f"🔗 [Open Google Sheet]({spreadsheet.url})", unsafe_allow_html=True)
+    else:
+        sheet = spreadsheet.sheet1
+        st.markdown(f"🔗 [Open Google Sheet]({spreadsheet.url})", unsafe_allow_html=True)
+
     return sheet
 
 sheet = get_worksheet()
